@@ -1,14 +1,20 @@
 package com.freshvotes.domain;
 
+import com.freshvotes.security.Authority;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table
 public class User {
     private Long id;
     private String username;
     private String name;
     private String password;
+    private Set<Authority> authorities = new HashSet<>();
+
+
 
     @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Long getId() {
@@ -41,5 +47,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 }
