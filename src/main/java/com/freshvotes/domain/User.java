@@ -13,6 +13,7 @@ public class User {
     private String name;
     private String password;
     private Set<Authority> authorities = new HashSet<>();
+    private Set<Product> products;
 
 
 
@@ -67,5 +68,14 @@ public class User {
                 ", password='" + password + '\'' +
                 ", authorities=" + authorities +
                 '}';
+    }
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }
